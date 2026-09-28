@@ -1,0 +1,164 @@
+# =============================================================================
+# Workshop content. This is the only file you need to edit.
+#
+# Run `python build.py --check` after any change. Never edit the generated
+# HTML in _site/ — it is deleted and rebuilt every time.
+#
+# Resource `status`:
+#   todo   -> renders greyed out as "Coming soon", not linked, not checked.
+#   ready  -> renders as a button. It needs `file` (must exist, or --check
+#             fails the build) or `link` (an https:// page outside the site).
+#
+# Optional resource fields added for this site:
+#   link   -> an outside page, such as the feedback form or Claude's own help.
+#             Opens in a new tab.
+#   button -> the button's label. Default: "Open" ("Notebook" for kind = "lab").
+#
+# The three "days" are the three steps of the workshop: Before, During, After.
+# There are no [[extra]] blocks, so the site has no Extra page. Add one and
+# the page and its nav link come back.
+# =============================================================================
+
+[course]
+# Shown in the browser tab and on the home page.
+title      = "How to actually use Claude"
+# The hero splits the title over two lines: <span>lead</span><br>rest
+title_lead = "How to actually"
+title_rest = "use Claude"
+
+# Add the date and room here once they are fixed, e.g. "... · 12 October, Building 19".
+tagline  = "A 90-minute hands-on workshop by Ali Habibullah, KAUST Academy."
+client   = "KAUST"
+provider = "KAUST Academy"
+year     = "2026"
+
+starts   = "To be confirmed"
+ends     = "To be confirmed"
+location = "To be confirmed"
+
+# The GitHub repo this site lives in. It drives the footer licence link.
+# Change it if the repo gets a different name.
+repo         = "KAUST-Academy/2026_KAUST_Claude_Workshop"
+
+license      = "GPL-3.0"
+license_note = "Recording and uploading lectures online is not permitted."
+
+# The heading above the three cards on the home page.
+schedule_label = "90 minutes, hands-on"
+schedule_title = "Before, during and after"
+
+# Paragraph under the cards on the home page.
+summary = """
+Use Claude on your own laptop for real work: summarize a report, turn meeting
+notes into action items with a ready-made skill, and let Claude work on a folder of files
+while you approve each change. You don't need to write any code. We use made-up
+practice files only. Don't put sensitive information into Claude, and follow
+KAUST policy on what you can and can't use.
+"""
+
+# -----------------------------------------------------------------------------
+# Before / During / After
+#
+# `icon` is a Remix Icon class. Check it exists before using it:
+#   grep '^\.ri-flask-line:before' theme/vendor/remixicon/remixicon.css
+# -----------------------------------------------------------------------------
+
+[[days]]
+slug  = "before"
+label = "Before"
+title = "Get set up"
+blurb = "About 20 minutes before you come: install Claude, sign in, check two settings and download the practice files."
+icon  = "ri-download-2-line"
+
+  [[days.resources]]
+  name   = "Setup guide"
+  detail = "All eight steps: choose a laptop and a plan, install and update Claude, check two settings, download the practice files and do a two-minute self-test."
+  kind   = "reference"
+  file   = "Extra/Setup_Guide.pdf"
+  status = "ready"
+
+  [[days.resources]]
+  name   = "Download Claude"
+  detail = "The desktop app, for Windows 10 or later or macOS 13 or later. Can't install software on your laptop? Use claude.ai in your browser instead."
+  kind   = "reference"
+  link   = "https://claude.com/download"
+  status = "ready"
+
+  [[days.resources]]
+  name   = "Practice files"
+  detail = "Made-up files for the exercises, as one zip file. Extract it into your Documents folder, so you get Documents > Claude-Practice (step 7 of the setup guide)."
+  kind   = "practice"
+  file   = "Labs/practice-files.zip"
+  button = "Download"
+  status = "ready"
+
+[[days]]
+slug  = "during"
+label = "During"
+title = "The workshop"
+blurb = "Ask well and check the answers, add a skill, see Cowork and workflows, and let Claude Code change files while you approve each step."
+icon  = "ri-slideshow-3-line"
+
+  [[days.resources]]
+  name   = "Slides"
+  detail = "The whole deck, one slide per page, with every step of the three hands-on exercises."
+  kind   = "slides"
+  file   = "Slides/How_to_Actually_Use_Claude.pdf"
+  status = "ready"
+
+  [[days.resources]]
+  name   = "Handout"
+  detail = "The one-page cheat sheet: how to ask well, where the settings are, and what never to put into Claude."
+  kind   = "reference"
+  file   = "Extra/Handout.pdf"
+  status = "ready"
+
+  [[days.resources]]
+  name   = "Practice files"
+  detail = "The same zip as on the Before page, if you haven't got it yet. A TA can help you extract it."
+  kind   = "practice"
+  file   = "Labs/practice-files.zip"
+  button = "Download"
+  status = "ready"
+
+[[days]]
+slug  = "after"
+label = "After"
+title = "Keep going"
+blurb = "Tell us how it went, try one real task that has nothing sensitive in it, and learn more from Claude's own help pages."
+icon  = "ri-rocket-2-line"
+
+  # When the form exists: add  link = "https://..."  and set status = "ready".
+  [[days.resources]]
+  name   = "Feedback form"
+  detail = "Two minutes: what worked, and what we should change next time."
+  kind   = "form"
+  status = "todo"
+
+  [[days.resources]]
+  name   = "Claude help center"
+  detail = "Official how-to articles on the Claude apps, plans, settings, skills and Cowork."
+  kind   = "reference"
+  link   = "https://support.claude.com"
+  status = "ready"
+
+  [[days.resources]]
+  name   = "Claude Code docs"
+  detail = "Official documentation for Claude Code, including the Code tab, permission modes and workflows."
+  kind   = "reference"
+  link   = "https://code.claude.com/docs"
+  status = "ready"
+
+  [[days.resources]]
+  name   = "Privacy center"
+  detail = "How Anthropic uses your chats, how long it keeps them, and how to change your setting."
+  kind   = "reference"
+  link   = "https://privacy.claude.com"
+  status = "ready"
+
+  [[days.resources]]
+  name   = "Plans and prices"
+  detail = "What Free, Pro and Max include, if you want more than the Free plan gives you."
+  kind   = "reference"
+  link   = "https://claude.com/pricing"
+  status = "ready"

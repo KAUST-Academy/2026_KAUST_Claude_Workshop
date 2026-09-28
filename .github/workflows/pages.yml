@@ -1,0 +1,74 @@
+name: Build and deploy site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Allow one deploy at a time; don't cancel a run that is mid-deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  # Runs on every push AND every pull request. A broken link fails the build
+  # before it can reach the site, which is the whole point.
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      # No `pip install` step: build.py is standard library only.
+      - name: Build site and verify every link resolves
+        run: python3 build.py --check
+
+      - name: Build offline classroom bundle
+        run: python3 build.py --offline
+
+      - name: Upload offline bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: offline-bundle
+          path: dist/*.zip
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Package site for Pages
+        if: >-
+          vars.DEPLOY_PAGES == 'true'
+          && github.ref == 'refs/heads/main'
+          && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  # Deploying needs GitHub Pages enabled, which on the free plan requires the
+  # repo to be public. While it is private, this job is skipped rather than
+  # left to fail: set the repo variable DEPLOY_PAGES to 'true' (Settings ->
+  # Secrets and variables -> Actions -> Variables) once the repo goes public.
+  # A genuine deploy failure still fails the run — nothing is swallowed.
+  deploy:
+    needs: build
+    if: >-
+      vars.DEPLOY_PAGES == 'true'
+      && github.ref == 'refs/heads/main'
+      && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

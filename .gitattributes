@@ -1,0 +1,13 @@
+# Normalise line endings; the team is split across macOS and Windows.
+* text=auto
+
+# Binary course material — never diff or line-ending-mangle these.
+*.pdf    binary
+*.png    binary
+*.jpg    binary
+*.xlsx   binary
+*.zip    binary
+
+# Notebooks: treat as text so diffs are reviewable, but don't merge them
+# automatically — a merged .ipynb is almost always corrupt.
+*.ipynb  text merge=binary

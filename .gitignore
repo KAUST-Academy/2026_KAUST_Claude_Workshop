@@ -1,0 +1,22 @@
+# Generated site and bundles — never commit these, they are rebuilt by
+# `python3 build.py`. Committing them is what makes course repos bloat.
+/_site/
+/dist/
+/wheelhouse/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Claude Code local settings (machine-specific, never share)
+.claude/
